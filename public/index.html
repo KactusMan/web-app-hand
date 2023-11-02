@@ -108,6 +108,10 @@
                 const context = canvas.getContext('2d');
                 context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
 
+                // Display the captured image
+                capturedImage.src = canvas.toDataURL('image/jpeg');
+                capturedImage.style.display = 'block';
+
                 // Convert the canvas data to a Blob
                 canvas.toBlob((blob) => {
                     if (blob) {
