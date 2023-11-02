@@ -12,8 +12,6 @@
     <!-- <button id="openCameraButton">Open Camera</button> -->
     <button id="startWebcamButton">Start Webcam</button>
     <button id="takePictureButton" style="display: none;">Take Picture</button>
-    <canvas id="capturedCanvas" style="display: none;"></canvas>
-    <img id="capturedImage" style="display: none; max-width: 100%; height: auto;">
     <!-- Added button for taking a picture -->
     <video id="webcamVideo" style="display: none;"></video>
     <!-- Added video element for webcam -->
@@ -29,8 +27,6 @@
         // const openCameraButton = document.getElementById('openCameraButton');
         const startWebcamButton = document.getElementById('startWebcamButton');
         const takePictureButton = document.getElementById('takePictureButton');
-        const capturedCanvas = document.getElementById('capturedCanvas');
-        const capturedImage = document.getElementById('capturedImage');
         const webcamVideo = document.getElementById('webcamVideo');
         const imageURL = document.getElementById('imageURL');
         const imageLink = document.getElementById('imageLink');
@@ -106,22 +102,11 @@
 
         function captureImage() {
             if (mediaStream) {
-                // const canvas = document.createElement('canvas');
-                capturedCanvas.width = webcamVideo.videoWidth;
-                capturedCanvas.height = webcamVideo.videoHeight;
-                // canvas.width = webcamVideo.videoWidth;
-                // canvas.height = webcamVideo.videoHeight;
+                const canvas = document.createElement('canvas');
+                canvas.width = webcamVideo.videoWidth;
+                canvas.height = webcamVideo.videoHeight;
                 const context = canvas.getContext('2d');
-                context.drawImage(webcamVideo, 0, 0, capturedCanvas.width, capturedCanvas.height);
-
-                // Capture the image data as a data URL
-                const imageDataURL = capturedCanvas.toDataURL('image/jpeg');
-
-                // Display the captured image
-                capturedImage.src = imageDataURL;
-                capturedImage.style.display = 'block';
-
-                sendImageToServer(imageDataURL);
+                context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
 
                 // Convert the canvas data to a Blob
                 canvas.toBlob((blob) => {
