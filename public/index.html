@@ -106,17 +106,22 @@
 
         function captureImage() {
             if (mediaStream) {
-                const canvas = document.createElement('canvas');
+                // const canvas = document.createElement('canvas');
                 capturedCanvas.width = webcamVideo.videoWidth;
                 capturedCanvas.height = webcamVideo.videoHeight;
-                canvas.width = webcamVideo.videoWidth;
-                canvas.height = webcamVideo.videoHeight;
+                // canvas.width = webcamVideo.videoWidth;
+                // canvas.height = webcamVideo.videoHeight;
                 const context = canvas.getContext('2d');
-                context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
+                context.drawImage(webcamVideo, 0, 0, capturedCanvas.width, capturedCanvas.height);
+
+                // Capture the image data as a data URL
+                const imageDataURL = capturedCanvas.toDataURL('image/jpeg');
 
                 // Display the captured image
-                capturedImage.src = capturedCanvas.toDataURL('image/jpeg');
+                capturedImage.src = imageDataURL;
                 capturedImage.style.display = 'block';
+
+                sendImageToServer(imageDataURL);
 
                 // Convert the canvas data to a Blob
                 canvas.toBlob((blob) => {
