@@ -17,7 +17,7 @@
     <!-- Added button for taking a picture -->
     <video id="webcamVideo" style="display: none;"></video>
     <!-- Added video element for webcam -->
-    <img id="preview" style="display: none;">
+    <img id="preview" style="display: none; max-width: 100%; max-height: 100%; object-fit: contain;">
     <div id="imageLink" style="display: none;">
         Image Link:
         <a id="imageURL" href="#" target="_blank"></a>
@@ -107,6 +107,9 @@
 
         function captureImage() {
             if (mediaStream) {
+                const maxWidth = 400; // Define the maximum width for the displayed image
+                const maxHeight = 400; // Define the maximum height for the displayed image
+
                 const canvas = document.createElement('canvas');
                 canvas.width = webcamVideo.videoWidth;
                 canvas.height = webcamVideo.videoHeight;
