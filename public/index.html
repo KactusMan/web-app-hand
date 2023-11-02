@@ -34,6 +34,9 @@
 
         let mediaStream;
 
+        takePictureButton.addEventListener('click', () => {
+            captureImage();
+        });
         // openCameraButton.addEventListener('click', () => {
         //     imageInput.click(); // Trigger the file input to open the camera
         // });
@@ -122,6 +125,11 @@
                             .then(response => response.json())
                             .then(data => {
                                 if (data.link) {
+                                    // Display the captured image on the webpage
+                                    const capturedImage = document.createElement('img');
+                                    capturedImage.src = data.link;
+                                    capturedImage.style.display = 'block';
+                                    document.body.appendChild(capturedImage);
                                     // Console log the image link
                                     console.log('Image link:', data.link);
 
